@@ -63,9 +63,9 @@ client.background        $base
 
 font pango:JetBrains Mono Nerd Font 12
 
-default_border pixel 0
-gaps inner 15px
-gaps outer 15px
+default_border pixel 2
+gaps inner 5px
+gaps outer 5px
 smart_gaps inverse_outer
 
 for_window [class="org.gnome.FileRoller"] floating enable
@@ -76,10 +76,13 @@ for_window [class="gnome-calendar"] floating enable
 for_window [class="Totem"] floating enable
 for_window [class="loupe"] floating enable
 for_window [class="mpv"] floating enable
+for_window [class="kitty"] border pixel 2
 
 #for_window [class="org.gnome.Nautilus"] floating enable
 #for_window [class="pcmanfm"] floating enable
 #for_window [class="Nemo"] floating enable
+
+focus_follows_mouse no
 
 #
 #     _         _            _             _
@@ -98,6 +101,8 @@ exec --no-startup-id ${HOME}/.screenlayout/default.sh
 
 exec_always --no-startup-id "${HOME}/.config/polybar/launch.sh"
 exec_always --no-startup-id "${HOME}/.fehbg"
+exec_always --no-startup-id tmux new-session -d -s nvim -n main nvim
+exec_always --no-startup-id tmux new-session -d -s yazi -n main yazi
 
 #
 #  _  __          _     _           _
@@ -126,21 +131,24 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+Mod1+Ctrl+k exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+Mod1+Ctrl+j exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 # start apps
-bindsym $mod+Return exec --no-startup-id alacritty
-bindsym $mod+b exec --no-startup-id brave
-bindsym $mod+e exec --no-startup-id nemo
-bindsym $mod+n exec --no-startup-id "flameshot gui"
-bindsym $mod+m exec --no-startup-id "flameshot screen"
-bindsym Ctrl+Shift+Escape exec --no-startup-id resources
+bindsym $mod+Return exec --no-startup-id kitty
+bindsym $mod+w exec --no-startup-id brave
+bindsym $mod+y exec --no-startup-id kitty tmux new-session -A -s yazi
+bindsym $mod+z exec --no-startup-id kitty tmux new-session -A -s nvim
+bindsym Print exec --no-startup-id "flameshot gui"
+bindsym Shift+Print exec --no-startup-id "flameshot screen"
 
 # start rofi
-bindsym $mod+d exec "rofi -modi drun,run -show drun"
-bindsym $mod+o exec "rofi -modi ssh,run -show ssh"
-bindsym $mod+p exec "rofi -show calc -modi calc -no-show-match -no-sort"
-bindsym $mod+w exec "$HOME/.config/rofi/scripts/wallpaper-picker.sh"
-bindsym Mod1+z exec "$HOME/.config/rofi/scripts/gpu-screen-recorder.sh"
+bindsym $mod+p exec "rofi -modi drun,run -show drun"
+bindsym $mod+c exec "rofi -show calc -modi calc -no-show-match -no-sort"
+bindsym $mod+m exec "$HOME/.config/rofi/scripts/music_menu"
+bindsym $mod+x exec "$HOME/.config/rofi/scripts/power_menu"
+bindsym $mod+Shift+w exec "$HOME/.config/rofi/scripts/wallpaper-picker.sh"
+bindsym Mod1+Print exec "$HOME/.config/rofi/scripts/gpu-screen-recorder.sh"
 bindsym Mod1+Tab exec "rofi -modi window,run -show window"
 
 # change focus
@@ -149,29 +157,17 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 # split in horizontal orientation
-# bindsym $mod+h split h
+bindsym $mod+Mod1+h split h
 
 # split in vertical orientation
-# bindsym $mod+v split v
+bindsym $mod+Mod1+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle

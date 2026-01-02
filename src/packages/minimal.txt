@@ -24,6 +24,7 @@ nemo-audio-tab
 nemo-fileroller
 nemo-image-converter
 nemo-share
+yazi
 
 # Audio
 pipewire
@@ -36,10 +37,9 @@ wireplumber
 # Multimedia & Plugins
 gst-plugin-pipewire
 flameshot
-chromium
 
 # System & Utilities
-alacritty
+kitty
 bash-completion
 gnome-keyring
 fastfetch
@@ -51,6 +51,7 @@ qt6-svg
 qt6-declarative
 rtkit
 polkit-gnome
+nvim
 
 # Input Drivers
 xf86-input-evdev
@@ -62,3 +63,6 @@ unzip
 unrar
 p7zip
 wget
+
+# Shell
+zsh

@@ -1,0 +1,28 @@
+#!/bin/sh
+track_name=$(playerctl metadata --format '{{xesam:title}}')
+notify-send "$track_name"
+choice=$(echo -e "Play\nPause\nNext\nPrev\nLoop Track\nLoop Playlist\nLoop None\nShuffle Toggle" | rofi -dmenu -vi -c -l 8 -p Music)
+shuffle_status=$(playerctl shuffle)
+loop_status=$(playerctl loop)
+
+case "$choice" in
+    "Play") playerctl play;;
+    "Pause") playerctl pause;;
+    "Next")
+        playerctl next
+        sleep 0.5
+        track_name=$(playerctl metadata --format '{{xesam:title}}')
+        notify-send "$track_name"
+        ;;
+    "Prev")
+        playerctl previous
+        sleep 0.5
+        track_name=$(playerctl metadata --format '{{xesam:title}}')
+        notify-send "$track_name"
+        ;;
+    "Loop Track") playerctl loop Track;;
+    "Loop Playlist") playerctl loop Playlist;;
+    "Loop None") playerctl loop None;;
+    "Shuffle Toggle") playerctl Toggle;;
+    *) exit 0;;
+esac

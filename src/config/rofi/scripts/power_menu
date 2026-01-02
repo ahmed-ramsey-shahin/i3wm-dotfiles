@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case "$(printf "Shutdown\nReboot\nLock\nExit dwm\n" | rofi -dmenu -p "System:" -c -vi -l 4)" in
+	"Shutdown") poweroff;;
+	"Reboot") reboot;;
+	"Lock") slock;;
+	"Exit dwm") pkill dwm;;
+	*) exit 1;;
+esac
+

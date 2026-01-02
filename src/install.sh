@@ -253,19 +253,14 @@ aurPackages() {
 EOF
 
 	case "${edition}" in
-	"1")
-		checkAurHelper
-
-		# Install aur packages for the standard edition.
-		yay -S --noconfirm brave-bin
-		;;
 	"2")
 		checkAurHelper
 
 		# Install aur packages for the full edition.
 		yay -S --noconfirm brave-bin vscodium-bin vesktop-bin r2modman-appimage curseforge gpu-screen-recorder
-		;;
+        ;;
 	esac
+    yay -S --noconfirm brave-bin
 }
 
 chooseInput() {
@@ -388,11 +383,11 @@ EOF
 	echo -e ""
 
 	while true; do
-		read -rp "Overwrite current .bashrc? [y/N] " option
+		read -rp "Overwrite current .bashrc and install zsh? [y/N] " option
 		case "${option}" in
 		[Yy])
-			echo -e "Overwriting current .bashrc..."
-			cp "${directory}/assets/bashrc/bashrc.txt" "${HOME}/.bashrc"
+			echo -e "Chaning to zsh..."
+			cp "${directory}/assets/zshenv/zshenv.txt" "${HOME}/.zshenv"
 			break
 			;;
 		*)
@@ -439,7 +434,7 @@ EOF
 	sudo cp -r "${directory}/assets/sddm/sddm.conf" "/etc/"
 
 	# Nemo scripts & config
-	gsettings set org.cinnamon.desktop.default-applications.terminal exec alacritty
+	gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty
 	gsettings set org.nemo.icon-view default-zoom-level 'larger'
 	mkdir -p "${HOME}/.local/share/nemo/scripts/"
 	cp -r "${directory}/assets/nemo/"* "${HOME}/.local/share/nemo/scripts/"
@@ -534,7 +529,8 @@ directory=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 confirmInstallation
 
 # Step 4
-chooseProfile
+# chooseProfile
+edition = "0"
 
 # Step 5
 updateSystem
